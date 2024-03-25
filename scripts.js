@@ -20,7 +20,7 @@ function convertValues(){
 }
 convertButton.addEventListener("click", convertValues) */
 
-window.oninput = function (event) {
+window.oninput = async function (event) {
     var campo = event.target.id;
     const currencySelect = document.querySelector(".currency-select");
     const currencySelectConvert = document.querySelector(".currency-select-convert");
@@ -31,11 +31,14 @@ window.oninput = function (event) {
     const currencyDown = document.querySelector(".currency-down");
     const currencyImgUp = document.querySelector(".currency-img-up");
     const currencyImgDown = document.querySelector(".currency-img-down");
-
-    const dolarDay = 4.97;
-    const euroDay = 5.43;
-    const bitcoinDay = 352309.32;
+    const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then((response) => response.json()) 
+    
+    const dolarDay = data.USDBRL.high;
+    const euroDay = data.EURBRL.high
+    const bitcoinDay = data.BTCBRL.high;
     const libraDay = 6.36;
+
+    
 
 
     if (currencySelect.value == "euro"){
@@ -82,4 +85,6 @@ window.oninput = function (event) {
         }).format(document.querySelector(".input-currency").value);
 
     }
-};
+
+}
+
